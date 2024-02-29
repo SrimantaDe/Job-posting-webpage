@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, jsonify
 job_list=[
 {
   "job_id":1,
@@ -29,8 +29,12 @@ job_list=[
 app_login = Flask(__name__)
 print(__name__)
 @app_login.route("/")
-def hello_world():
+def job_world():
     return render_template("home.html",jobs=job_list,company_name="Sid's Startup")
+
+@app_login.route("/api/jobs")
+def jobs():
+  return jsonify(job_list)
 
 if __name__ == "__main__":
   app_login.run(host='0.0.0.0', port=8080)
